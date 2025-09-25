@@ -1,17 +1,20 @@
-# استخدم نسخة Python ثابتة متوافقة مع مكتباتك
-FROM python:3.10-slim
+# استخدم صورة Python 3.11
+FROM python:3.11-slim
 
-# حدد مجلد العمل داخل الحاوية
+# اضبط متغير بيئة العمل
 WORKDIR /app
 
-# انسخ كل ملفات المشروع
+# انسخ ملفات المشروع
 COPY . /app
 
-# حدث pip أولًا
+# حدث pip أولاً
 RUN pip install --upgrade pip
 
-# ثبّت المكتبات من ملف requirements
-RUN pip install -r requirements.txt
+# ثبت المتطلبات
+RUN pip install --no-cache-dir -r requirements.txt
 
-# شغّل التطبيق باستخدام uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# اعرض البورت اللي هيشتغل عليه التطبيق
+EXPOSE 8000
+
+# أمر التشغيل
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
