@@ -6,7 +6,6 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import io
 from PIL import Image
-
 # تحميل الموديل
 model = load_model("face_shape_model_final.keras")
 
