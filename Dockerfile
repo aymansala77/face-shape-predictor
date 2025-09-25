@@ -1,19 +1,21 @@
-# استخدم صورة Python 3.11
+# استخدم Python 3.11 رسمي
 FROM python:3.11-slim
 
-# اضبط متغير بيئة العمل
+# إعداد working directory
 WORKDIR /app
 
-# انسخ ملفات المشروع
-COPY . /app
+# نسخ الملفات المهمة
+COPY requirements.txt .
+COPY main.py .
 
-# حدث pip أولاً
-RUN pip install --upgrade pip
+# تثبيت pip وأدوات البناء الأساسية
+RUN apt-get update && apt-get install -y build-essential \
+    && pip install --upgrade pip
 
-# ثبت المتطلبات
+# تثبيت المكتبات الضرورية والمتوافقة فقط
 RUN pip install --no-cache-dir -r requirements.txt
 
-# اعرض البورت اللي هيشتغل عليه التطبيق
+# expose البورت اللي FastAPI بيشتغل عليه
 EXPOSE 8000
 
 # أمر التشغيل
